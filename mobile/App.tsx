@@ -13,8 +13,9 @@ import { THEME } from './src/theme';
 import { Loading } from '@components/Loading';
 import { preventAutoHideAsync } from 'expo-splash-screen';
 
-import { SignIn } from '@screens/SignIn';
 import { Splash } from '@screens/Splash';
+import { SignIn } from '@screens/SignIn';
+import { SignUp } from '@screens/SignUp';
 //import { Home } from '@screens/Home';
 
 preventAutoHideAsync();
@@ -33,7 +34,7 @@ export default function App() {
 			/>
 			{fontsLoaded ? (
 				splashComplete ? (
-					<SignIn />
+					<SignUp />
 				) : (
 					<Splash onComplete={setSplashComplete} />
 				)
