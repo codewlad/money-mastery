@@ -9,12 +9,13 @@ import {
 } from '@expo-google-fonts/roboto';
 
 import { THEME } from './src/theme';
-import { Loading } from './src/components/Loading';
 
-import { Home } from './src/screens/Home';
-import { Splash } from './src/screens/Splash';
-
+import { Loading } from '@components/Loading';
 import { preventAutoHideAsync } from 'expo-splash-screen';
+
+import { SignIn } from '@screens/SignIn';
+import { Splash } from '@screens/Splash';
+//import { Home } from '@screens/Home';
 
 preventAutoHideAsync();
 
@@ -27,12 +28,12 @@ export default function App() {
 		<NativeBaseProvider theme={THEME}>
 			<StatusBar
 				barStyle={'light-content'}
-				backgroundColor={'transparent'}
+				backgroundColor={'black'}
 				translucent
 			/>
 			{fontsLoaded ? (
 				splashComplete ? (
-					<Home />
+					<SignIn />
 				) : (
 					<Splash onComplete={setSplashComplete} />
 				)
