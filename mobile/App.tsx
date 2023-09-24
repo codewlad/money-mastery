@@ -18,6 +18,8 @@ import { SignIn } from '@screens/SignIn';
 import { SignUp } from '@screens/SignUp';
 //import { Home } from '@screens/Home';
 
+import { Routes } from './src/routes';
+
 preventAutoHideAsync();
 
 export default function App() {
@@ -34,7 +36,7 @@ export default function App() {
 			/>
 			{fontsLoaded ? (
 				splashComplete ? (
-					<SignUp />
+					<Routes />
 				) : (
 					<Splash onComplete={setSplashComplete} />
 				)
