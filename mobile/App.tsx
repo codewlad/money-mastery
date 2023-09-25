@@ -14,9 +14,7 @@ import { Loading } from '@components/Loading';
 import { preventAutoHideAsync } from 'expo-splash-screen';
 
 import { Splash } from '@screens/Splash';
-import { SignIn } from '@screens/SignIn';
-import { SignUp } from '@screens/SignUp';
-//import { Home } from '@screens/Home';
+import { Home } from '@screens/Home';
 
 import { Routes } from './src/routes';
 
@@ -36,7 +34,7 @@ export default function App() {
 			/>
 			{fontsLoaded ? (
 				splashComplete ? (
-					<Routes />
+					<Home />
 				) : (
 					<Splash onComplete={setSplashComplete} />
 				)

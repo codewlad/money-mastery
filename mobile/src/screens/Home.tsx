@@ -1,18 +1,20 @@
-import { Text, View } from 'react-native';
+import { Text, VStack } from 'native-base';
+
+import { Header } from '@components/Header';
 
 export function Home() {
+	const user = {
+		avatar: null,
+	};
+
 	return (
-		<View
-			style={{
-				flex: 1,
-				alignItems: 'center',
-				justifyContent: 'center',
-				backgroundColor: '#000',
-			}}
-		>
-			<Text style={{ color: '#FFF', fontSize: 32, fontWeight: 'bold' }}>
-				Home
-			</Text>
-		</View>
+		<VStack flex={1}>
+			<Header
+				user={user}
+				variant='home'
+				title={null}
+			/>
+			<Text>Home</Text>
+		</VStack>
 	);
 }

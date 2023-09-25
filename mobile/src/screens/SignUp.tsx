@@ -3,6 +3,7 @@ import { Center, HStack, Image, ScrollView, Text, VStack } from 'native-base';
 
 import BackgroundImg from '@assets/background.png';
 import LogoImg from '@assets/coin.png';
+
 import { Input } from '@components/Input';
 import { Button } from '@components/Button';
 
