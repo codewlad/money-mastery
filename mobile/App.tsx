@@ -34,7 +34,7 @@ export default function App() {
 			/>
 			{fontsLoaded ? (
 				splashComplete ? (
-					<Home />
+					<Routes />
 				) : (
 					<Splash onComplete={setSplashComplete} />
 				)

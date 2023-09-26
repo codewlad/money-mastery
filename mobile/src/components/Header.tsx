@@ -14,7 +14,7 @@ type Props =
 			title: null;
 	  }
 	| {
-			user: UserDTO;
+			user?: UserDTO;
 			variant: 'default';
 			title: string;
 	  };
