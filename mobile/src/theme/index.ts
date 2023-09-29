@@ -20,7 +20,7 @@ export const THEME = extendTheme(
             },
             transparent: {
                 black: {
-                    95: 'rgba(0,0,0,0.95)',
+                    95: 'rgba(0,0,0,0.7)',
                 }
             },
         },
@@ -39,6 +39,9 @@ export const THEME = extendTheme(
         sizes: {
             13: 52,
             14: 56,
+            18: 72,
+            25: 100,
+            29: 116,
             33: 148,
         },
     }

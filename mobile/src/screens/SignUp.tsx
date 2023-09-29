@@ -4,7 +4,7 @@ import { Center, HStack, Image, ScrollView, Text, VStack } from 'native-base';
 import BackgroundImg from '@assets/background.png';
 import LogoImg from '@assets/coin.png';
 
-import { Input } from '@components/Input';
+import { RegistrationInput } from '@components/RegistrationInput';
 import { Button } from '@components/Button';
 
 export function SignUp() {
@@ -73,17 +73,17 @@ export function SignUp() {
 					>
 						Crie sua conta
 					</Text>
-					<Input placeholder='Nome' />
-					<Input
+					<RegistrationInput placeholder='Nome' />
+					<RegistrationInput
 						placeholder='E-mail'
 						keyboardType='email-address'
 						autoCapitalize='none'
 					/>
-					<Input
+					<RegistrationInput
 						placeholder='Senha'
 						secureTextEntry
 					/>
-					<Input
+					<RegistrationInput
 						placeholder='Confirme a senha'
 						secureTextEntry
 					/>

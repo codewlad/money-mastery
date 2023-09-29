@@ -6,7 +6,7 @@ import { AuthNavigatorRoutesProps } from '@routes/auth.routes';
 import BackgroundImg from '@assets/background.png';
 import LogoImg from '@assets/coin.png';
 
-import { Input } from '@components/Input';
+import { RegistrationInput } from '@components/RegistrationInput';
 import { Button } from '@components/Button';
 
 export function SignIn() {
@@ -75,12 +75,12 @@ export function SignIn() {
 					>
 						Acesse sua conta
 					</Text>
-					<Input
+					<RegistrationInput
 						placeholder='E-mail'
 						keyboardType='email-address'
 						autoCapitalize='none'
 					/>
-					<Input
+					<RegistrationInput
 						placeholder='Senha'
 						secureTextEntry
 					/>
