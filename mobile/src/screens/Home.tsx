@@ -35,7 +35,26 @@ export function Home() {
 		avatar: null,
 	};
 
-	const elementSpaceY: number = 3;
+	const mock = [
+		{
+			id: 2,
+			period: 'set-23',
+			day: 1,
+			description: 'Pagamento',
+			category: 'Salário',
+			value: 440000,
+		},
+		{
+			id: 3,
+			period: 'set-23',
+			day: 2,
+			description: 'Conta de luz',
+			category: 'Despesas fixas',
+			value: 18000,
+		},
+	];
+
+	const elementSpaceY: number = 2;
 
 	return (
 		<>
@@ -127,7 +146,7 @@ export function Home() {
 							<HStack space={elementSpaceY}>
 								<Input
 									placeholder='Categoria'
-									w={20}
+									w={37}
 								/>
 
 								<Input
@@ -138,9 +157,9 @@ export function Home() {
 						</VStack>
 
 						<HStack
-							space={5}
 							w={15}
 							alignItems={'center'}
+							justifyContent={'space-between'}
 						>
 							<Feather
 								name='plus-circle'
@@ -157,9 +176,17 @@ export function Home() {
 					</HStack>
 				</VStack>
 
-				<VStack px={5}>
-					<InOut />
-				</VStack>
+				<FlatList
+					px={5}
+					data={mock}
+					keyExtractor={(item) => item.id.toString()}
+					renderItem={({ item }) => (
+						<InOut
+							elementSpaceY={elementSpaceY}
+							data={item}
+						/>
+					)}
+				/>
 			</VStack>
 		</>
 	);

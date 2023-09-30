@@ -8,6 +8,7 @@ export const THEME = extendTheme(
                 400: '#FBBF24',
             },
             gray: {
+                1000: '#0A0A0A',
                 900: '#18181B',
                 500: '#71717A',
             },
@@ -43,7 +44,8 @@ export const THEME = extendTheme(
             18: 72,
             25: 100,
             29: 116,
-            33: 148,
+            33: 132,
+            37: 148,
         },
     }
 )

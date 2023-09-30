@@ -33,7 +33,6 @@ export function RegistrationInput({
 				placeholderTextColor={'gray.500'}
 				isInvalid={invalid}
 				_invalid={{
-					borderWidth: 1,
 					borderColor: 'red.900',
 				}}
 				_focus={{
