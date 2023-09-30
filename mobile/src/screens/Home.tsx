@@ -35,6 +35,8 @@ export function Home() {
 		avatar: null,
 	};
 
+	const elementSpaceY: number = 3;
+
 	return (
 		<>
 			<Image
@@ -48,7 +50,7 @@ export function Home() {
 			/>
 			<VStack
 				flex={1}
-				space={30}
+				space={8}
 			>
 				<Header
 					user={user}
@@ -64,7 +66,7 @@ export function Home() {
 						px={2}
 						h={8}
 						w={8}
-						mr={2}
+						mr={elementSpaceY}
 						justifyContent={'center'}
 						alignItems={'center'}
 						rounded={8}
@@ -81,6 +83,7 @@ export function Home() {
 						keyExtractor={(item) => item}
 						renderItem={({ item }) => (
 							<Group
+								elementSpaceY={elementSpaceY}
 								name={item}
 								isActive={groupSelected === item}
 								onPress={() => setGroupSelected(item)}
@@ -98,47 +101,59 @@ export function Home() {
 						color={'amber.400'}
 						fontSize={'xl'}
 						fontFamily={'heading'}
-						mb={3}
+						mb={elementSpaceY}
 					>
 						Lançamentos
 					</Text>
 					<HStack
-						space={2}
+						space={5}
 						w={'full'}
-						maxH={34}
-						alignItems={'center'}
 					>
-						<Input
-							placeholder='Dia'
-							w={36}
-						/>
-
-						<Input
-							placeholder='Descrição'
+						<VStack
+							space={elementSpaceY}
 							flex={1}
-						/>
+						>
+							<HStack space={elementSpaceY}>
+								<Input
+									placeholder='Dia'
+									w={36}
+								/>
 
-						<Input
-							placeholder='Categoria'
-							w={20}
-						/>
+								<Input
+									placeholder='Descrição'
+									flex={1}
+								/>
+							</HStack>
+							<HStack space={elementSpaceY}>
+								<Input
+									placeholder='Categoria'
+									w={20}
+								/>
 
-						<Input
-							placeholder='Valor'
-							w={20}
-						/>
+								<Input
+									placeholder='Valor'
+									flex={1}
+								/>
+							</HStack>
+						</VStack>
 
-						<Feather
-							name='plus-circle'
-							size={20}
-							color={colors.green[900]}
-						/>
+						<HStack
+							space={5}
+							w={15}
+							alignItems={'center'}
+						>
+							<Feather
+								name='plus-circle'
+								size={20}
+								color={colors.green[900]}
+							/>
 
-						<Feather
-							name='minus-circle'
-							size={20}
-							color={colors.red[900]}
-						/>
+							<Feather
+								name='minus-circle'
+								size={20}
+								color={colors.red[900]}
+							/>
+						</HStack>
 					</HStack>
 				</VStack>
 

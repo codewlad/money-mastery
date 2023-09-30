@@ -3,12 +3,13 @@ import { Text, Pressable, IPressableProps } from 'native-base';
 type Props = IPressableProps & {
 	name: string;
 	isActive?: boolean;
+	elementSpaceY: number;
 };
 
-export function Group({ name, isActive, ...rest }: Props) {
+export function Group({ name, isActive, elementSpaceY, ...rest }: Props) {
 	return (
 		<Pressable
-			mr={2}
+			mr={elementSpaceY}
 			w={24}
 			h={8}
 			bg={'gray.900'}
