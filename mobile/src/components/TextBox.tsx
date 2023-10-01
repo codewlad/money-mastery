@@ -20,13 +20,14 @@ export function TextBox({
 	return (
 		<View
 			bgColor={variation === 'primary' ? 'gray.900' : 'gray.1000'}
+			h={9}
 			px={2}
-			py={1}
 			borderWidth={1}
-			borderColor={variation === 'primary' ? 'gray.900' : 'gray.1000'}
+			borderColor={'gray.900'}
 			rounded={8}
 			width={width}
 			flex={flex}
+			justifyContent={'center'}
 		>
 			{type === 'price' ? (
 				<HStack justifyContent={'space-between'}>

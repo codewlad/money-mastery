@@ -45,6 +45,7 @@ export const THEME = extendTheme(
             25: 100,
             29: 116,
             33: 132,
+            35: 140,
             37: 148,
         },
     }

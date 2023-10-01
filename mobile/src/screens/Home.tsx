@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
 	FlatList,
 	HStack,
@@ -7,6 +7,7 @@ import {
 	Image,
 	useTheme,
 	View,
+	ScrollView,
 } from 'native-base';
 
 import { Feather } from '@expo/vector-icons';
@@ -31,13 +32,15 @@ export function Home() {
 	]);
 	const [groupSelected, setGroupSelected] = useState('set-23');
 
+	const [totalValue, setTotalValue] = useState(0);
+
 	const user = {
 		avatar: null,
 	};
 
 	const mock = [
 		{
-			id: 2,
+			id: 1,
 			period: 'set-23',
 			day: 1,
 			description: 'Pagamento',
@@ -45,16 +48,53 @@ export function Home() {
 			value: 440000,
 		},
 		{
-			id: 3,
+			id: 2,
 			period: 'set-23',
 			day: 2,
 			description: 'Conta de luz',
 			category: 'Despesas fixas',
 			value: 18000,
 		},
+		{
+			id: 3,
+			period: 'set-23',
+			day: 3,
+			description: 'Conta de água',
+			category: 'Despesas fixas',
+			value: 18000,
+		},
+		{
+			id: 4,
+			period: 'set-23',
+			day: 4,
+			description: 'Codomínio',
+			category: 'Despesas fixas',
+			value: 18000,
+		},
+		{
+			id: 5,
+			period: 'set-23',
+			day: 5,
+			description: 'Mercado',
+			category: 'Despesas fixas',
+			value: 18000,
+		},
 	];
 
 	const elementSpaceY: number = 2;
+
+	//----------------//
+	const [editingId, setEditingId] = useState(null);
+	//----------------//
+
+	useEffect(() => {
+		const total = mock.reduce((acc, item) => acc + item.value, 0);
+		setTotalValue(total);
+	}, []);
+
+	useEffect(() => {
+		console.log(editingId);
+	}, [setEditingId]);
 
 	return (
 		<>
@@ -115,78 +155,117 @@ export function Home() {
 					/>
 				</HStack>
 
-				<VStack px={5}>
+				<ScrollView
+					w={'full'}
+					px={5}
+				>
+					<VStack
+						mb={8}
+						pointerEvents={'auto'}
+						opacity={1}
+					>
+						<Text
+							color={'amber.400'}
+							fontSize={'xl'}
+							fontFamily={'heading'}
+							mb={elementSpaceY}
+						>
+							Lançamentos
+						</Text>
+						<HStack
+							space={5}
+							w={'full'}
+						>
+							<VStack
+								space={elementSpaceY}
+								flex={1}
+							>
+								<HStack space={elementSpaceY}>
+									<Input
+										placeholder='Dia'
+										w={10}
+									/>
+
+									<Input
+										placeholder='Descrição'
+										flex={1}
+									/>
+								</HStack>
+								<HStack space={elementSpaceY}>
+									<Input
+										placeholder='Categoria'
+										w={37}
+									/>
+
+									<Input
+										placeholder='Valor'
+										flex={1}
+									/>
+								</HStack>
+							</VStack>
+
+							<HStack
+								w={15}
+								alignItems={'center'}
+								justifyContent={'space-between'}
+							>
+								<Feather
+									name='plus-circle'
+									size={20}
+									color={colors.green[900]}
+								/>
+
+								<Feather
+									name='minus-circle'
+									size={20}
+									color={colors.red[900]}
+								/>
+							</HStack>
+						</HStack>
+					</VStack>
+
+					<VStack flex={1}>
+						{mock.map((entrada, index) => {
+							return (
+								<InOut
+									elementSpaceY={elementSpaceY}
+									data={entrada}
+									key={entrada.id}
+									setEditingId={setEditingId}
+								/>
+							);
+						})}
+					</VStack>
+				</ScrollView>
+
+				<HStack
+					px={5}
+					mb={8}
+					space={2}
+					w={'full'}
+					justifyContent={'flex-end'}
+				>
 					<Text
-						color={'amber.400'}
+						color={'white'}
 						fontSize={'xl'}
 						fontFamily={'heading'}
-						mb={elementSpaceY}
+						w={18}
+						textAlign={'center'}
 					>
-						Lançamentos
+						Total:
 					</Text>
-					<HStack
-						space={5}
-						w={'full'}
+					<Text
+						bg={'gray.900'}
+						color={totalValue >= 0 ? 'green.900' : 'red.900'}
+						fontSize={'xl'}
+						fontFamily={'heading'}
+						h={8}
+						rounded={8}
+						px={2}
 					>
-						<VStack
-							space={elementSpaceY}
-							flex={1}
-						>
-							<HStack space={elementSpaceY}>
-								<Input
-									placeholder='Dia'
-									w={36}
-								/>
-
-								<Input
-									placeholder='Descrição'
-									flex={1}
-								/>
-							</HStack>
-							<HStack space={elementSpaceY}>
-								<Input
-									placeholder='Categoria'
-									w={37}
-								/>
-
-								<Input
-									placeholder='Valor'
-									flex={1}
-								/>
-							</HStack>
-						</VStack>
-
-						<HStack
-							w={15}
-							alignItems={'center'}
-							justifyContent={'space-between'}
-						>
-							<Feather
-								name='plus-circle'
-								size={20}
-								color={colors.green[900]}
-							/>
-
-							<Feather
-								name='minus-circle'
-								size={20}
-								color={colors.red[900]}
-							/>
-						</HStack>
-					</HStack>
-				</VStack>
-
-				<FlatList
-					px={5}
-					data={mock}
-					keyExtractor={(item) => item.id.toString()}
-					renderItem={({ item }) => (
-						<InOut
-							elementSpaceY={elementSpaceY}
-							data={item}
-						/>
-					)}
-				/>
+						{`R$ ${totalValue}`}
+					</Text>
+				</HStack>
 			</VStack>
 		</>
 	);
