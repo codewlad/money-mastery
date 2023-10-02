@@ -32,13 +32,13 @@ export function Home() {
 	]);
 	const [groupSelected, setGroupSelected] = useState('set-23');
 
-	const [totalValue, setTotalValue] = useState(0);
+	const [totalValue, setTotalValue] = useState('0');
 
 	const user = {
 		avatar: null,
 	};
 
-	const mock = [
+	const data = [
 		{
 			id: 1,
 			period: 'set-23',
@@ -53,7 +53,7 @@ export function Home() {
 			day: 2,
 			description: 'Conta de luz',
 			category: 'Despesas fixas',
-			value: 18000,
+			value: -18000,
 		},
 		{
 			id: 3,
@@ -61,7 +61,7 @@ export function Home() {
 			day: 3,
 			description: 'Conta de água',
 			category: 'Despesas fixas',
-			value: 18000,
+			value: -18000,
 		},
 		{
 			id: 4,
@@ -69,7 +69,7 @@ export function Home() {
 			day: 4,
 			description: 'Codomínio',
 			category: 'Despesas fixas',
-			value: 18000,
+			value: -18000,
 		},
 		{
 			id: 5,
@@ -77,24 +77,57 @@ export function Home() {
 			day: 5,
 			description: 'Mercado',
 			category: 'Despesas fixas',
-			value: 18000,
+			value: -18000,
 		},
 	];
 
 	const elementSpaceY: number = 2;
 
-	//----------------//
 	const [editingId, setEditingId] = useState(null);
-	//----------------//
+
+	function formatValues(value: number) {
+		return (value / 100).toLocaleString('pt-BR', {
+			minimumFractionDigits: 2,
+		});
+	}
 
 	useEffect(() => {
-		const total = mock.reduce((acc, item) => acc + item.value, 0);
-		setTotalValue(total);
+		const total = data.reduce((acc, item) => acc + item.value, 0);
+		const totalFormatted = formatValues(total);
+		setTotalValue(totalFormatted);
 	}, []);
 
 	useEffect(() => {
-		console.log(editingId);
+		//console.log(editingId);
 	}, [setEditingId]);
+
+	const [inputValue, setInputValue] = useState('');
+
+	// Função criada com o ChatGPT
+	const handleInputChange = (text: string) => {
+		// Remove qualquer caractere não numérico, como vírgulas ou pontos
+		const numericValue = text.replace(/[^0-9]/g, '');
+
+		// Remove zeros à esquerda
+		const cleanedValue = numericValue.replace(/^0+/, '');
+
+		// Verifica se o valor é vazio após remover zeros à esquerda
+		if (cleanedValue === '') {
+			setInputValue('0,00'); // Define o valor padrão como 0,00 se estiver vazio
+		} else {
+			// Divide o valor em reais e centavos
+			const reais = cleanedValue.slice(0, -2) || '0';
+			const centavos = cleanedValue.slice(-2);
+
+			// Adiciona um ponto como separador de milhar
+			const formattedReais = reais.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+
+			// Formata o valor como "x.xxx,xx"
+			const formattedValue = `${formattedReais},${centavos}`;
+
+			setInputValue(formattedValue);
+		}
+	};
 
 	return (
 		<>
@@ -161,8 +194,8 @@ export function Home() {
 				>
 					<VStack
 						mb={8}
-						pointerEvents={'auto'}
-						opacity={1}
+						pointerEvents={editingId === null ? 'auto' : 'none'}
+						opacity={editingId === null ? 1 : 0.3}
 					>
 						<Text
 							color={'amber.400'}
@@ -200,6 +233,9 @@ export function Home() {
 									<Input
 										placeholder='Valor'
 										flex={1}
+										keyboardType='numeric'
+										onChangeText={handleInputChange}
+										value={inputValue}
 									/>
 								</HStack>
 							</VStack>
@@ -225,12 +261,13 @@ export function Home() {
 					</VStack>
 
 					<VStack flex={1}>
-						{mock.map((entrada, index) => {
+						{data.map((entrada, index) => {
 							return (
 								<InOut
 									elementSpaceY={elementSpaceY}
 									data={entrada}
 									key={entrada.id}
+									editingId={editingId}
 									setEditingId={setEditingId}
 								/>
 							);
@@ -256,7 +293,11 @@ export function Home() {
 					</Text>
 					<Text
 						bg={'gray.900'}
-						color={totalValue >= 0 ? 'green.900' : 'red.900'}
+						color={
+							parseFloat(totalValue) >= 0
+								? 'green.900'
+								: 'red.900'
+						}
 						fontSize={'xl'}
 						fontFamily={'heading'}
 						h={8}

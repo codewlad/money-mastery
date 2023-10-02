@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { HStack, VStack, useTheme } from 'native-base';
 
 import { Octicons } from '@expo/vector-icons';
@@ -12,6 +12,7 @@ import { ReleaseDTO } from '@dtos/ReleaseDTO';
 type Props = {
 	elementSpaceY: number;
 	data: ReleaseDTO;
+	editingId: number | null;
 	setEditingId: any;
 };
 
@@ -20,7 +21,7 @@ type VariantProps = {
 	editing: undefined;
 };
 
-export function InOut({ elementSpaceY, data, setEditingId }: Props) {
+export function InOut({ elementSpaceY, data, editingId, setEditingId }: Props) {
 	const { colors } = useTheme();
 
 	const [variant, setVariant] = useState<keyof VariantProps>('viewing');
@@ -31,13 +32,15 @@ export function InOut({ elementSpaceY, data, setEditingId }: Props) {
 	const [value, setValue] = useState(data.value.toString());
 
 	function handleEditing() {
-		console.log(data.id);
 		setVariant('editing');
 		setEditingId(data.id);
+
+		//console.log('DATA-ID', data.id);
 	}
 
 	function handleViewing() {
 		setVariant('viewing');
+		setEditingId(null);
 	}
 
 	const handleSetDay = (text: string) => setDay(text);
@@ -45,12 +48,29 @@ export function InOut({ elementSpaceY, data, setEditingId }: Props) {
 	const handleSetCategory = (text: string) => setCategory(text);
 	const handleSetValue = (text: string) => setValue(text);
 
+	function formatValues(value: number) {
+		return (value / 100).toLocaleString('pt-BR', {
+			minimumFractionDigits: 2,
+		});
+	}
+
+	useEffect(() => {
+		//console.log('EDITING-ID ->', editingId);
+	}, [editingId]);
+
 	return (
 		<HStack
 			space={5}
 			alignItems={'center'}
 			mb={8}
-			pointerEvents={'auto'}
+			pointerEvents={
+				editingId === null
+					? 'auto'
+					: editingId === data.id
+					? 'auto'
+					: 'none'
+			}
+			opacity={editingId === null ? 1 : editingId === data.id ? 1 : 0.3}
 		>
 			<VStack
 				space={elementSpaceY}
@@ -98,7 +118,7 @@ export function InOut({ elementSpaceY, data, setEditingId }: Props) {
 								variation='secondary'
 							/>
 							<TextBox
-								name={data.value}
+								name={formatValues(data.value)}
 								flex={1}
 								variation='secondary'
 								type='price'
