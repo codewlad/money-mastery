@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { HStack, VStack, useTheme } from 'native-base';
+import { HStack, VStack, useTheme, Select, CheckIcon } from 'native-base';
 
 import { Octicons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -30,6 +30,13 @@ export function InOut({ elementSpaceY, data, editingId, setEditingId }: Props) {
 	const [description, setDescription] = useState(data.description.toString());
 	const [category, setCategory] = useState(data.category.toString());
 	const [value, setValue] = useState(data.value.toString());
+
+	const categoriesList = [
+		'Outros',
+		'Salário',
+		'Despesas fixas',
+		'Rendimento',
+	];
 
 	function handleEditing() {
 		setVariant('editing');
@@ -126,15 +133,51 @@ export function InOut({ elementSpaceY, data, editingId, setEditingId }: Props) {
 						</>
 					) : (
 						<>
-							<Input
-								placeholder='Dia'
-								w={37}
-								value={category}
-								onChangeText={handleSetCategory}
-							/>
+							<Select
+								selectedValue={category}
+								w={40}
+								h={9}
+								rounded={8}
+								color={'white'}
+								accessibilityLabel='Escolha a categoria'
+								placeholder='Categoria'
+								borderColor={'gray.500'}
+								bg={'gray.900'}
+								_selectedItem={{
+									bg: 'amber.400',
+									_text: {
+										color: 'black',
+									},
+									endIcon: <CheckIcon size={'5'} />,
+									rounded: 8,
+								}}
+								onValueChange={(itemvalue) =>
+									setCategory(itemvalue)
+								}
+								_item={{
+									bg: 'gray.900',
+									rounded: '8',
+									_text: {
+										color: 'gray.500',
+									},
+								}}
+								_actionSheetContent={{
+									bg: 'gray.900',
+								}}
+							>
+								{categoriesList.map((itemList) => {
+									return (
+										<Select.Item
+											key={itemList}
+											label={itemList}
+											value={itemList}
+										/>
+									);
+								})}
+							</Select>
 
 							<Input
-								placeholder='Descrição'
+								placeholder='Valor'
 								flex={1}
 								value={value}
 								onChangeText={handleSetValue}
