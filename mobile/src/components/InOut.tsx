@@ -160,6 +160,9 @@ export function InOut({ elementSpaceY, data, editingId, setEditingId }: Props) {
 									_text: {
 										color: 'gray.500',
 									},
+									_pressed: {
+										bg: 'gray.1000',
+									},
 								}}
 								_actionSheetContent={{
 									bg: 'gray.900',
