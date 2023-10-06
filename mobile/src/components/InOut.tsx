@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { TouchableOpacity } from 'react-native';
 import { HStack, VStack, useTheme, Select, CheckIcon } from 'native-base';
 
 import { Octicons } from '@expo/vector-icons';
@@ -129,6 +130,7 @@ export function InOut({ elementSpaceY, data, editingId, setEditingId }: Props) {
 								flex={1}
 								variation='secondary'
 								type='price'
+								isPositive={data.value >= 0 ? true : false}
 							/>
 						</>
 					) : (
@@ -197,33 +199,41 @@ export function InOut({ elementSpaceY, data, editingId, setEditingId }: Props) {
 			>
 				{variant === 'viewing' ? (
 					<>
-						<Octicons
-							name='pencil'
-							size={20}
-							color={colors.gray[500]}
-							onPress={handleEditing}
-						/>
+						<TouchableOpacity>
+							<Octicons
+								name='pencil'
+								size={20}
+								color={colors.gray[500]}
+								onPress={handleEditing}
+							/>
+						</TouchableOpacity>
 
-						<Octicons
-							name='trash'
-							size={20}
-							color={colors.red[900]}
-						/>
+						<TouchableOpacity>
+							<Octicons
+								name='trash'
+								size={20}
+								color={colors.red[900]}
+							/>
+						</TouchableOpacity>
 					</>
 				) : (
 					<>
-						<MaterialCommunityIcons
-							name='undo'
-							size={20}
-							color={colors.gray[500]}
-							onPress={handleViewing}
-						/>
+						<TouchableOpacity>
+							<MaterialCommunityIcons
+								name='undo'
+								size={20}
+								color={colors.gray[500]}
+								onPress={handleViewing}
+							/>
+						</TouchableOpacity>
 
-						<Octicons
-							name='check-circle'
-							size={20}
-							color={colors.green[900]}
-						/>
+						<TouchableOpacity>
+							<Octicons
+								name='check-circle'
+								size={20}
+								color={colors.green[900]}
+							/>
+						</TouchableOpacity>
 					</>
 				)}
 			</HStack>

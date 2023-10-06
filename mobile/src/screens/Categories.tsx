@@ -80,7 +80,7 @@ export function Categories() {
 				>
 					<Input
 						flex={1}
-						placeholder='Insira o nome da categoria'
+						placeholder='Informe a categoria'
 					/>
 
 					<ButtonNativeBase

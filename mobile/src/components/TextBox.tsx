@@ -7,6 +7,7 @@ type Props = {
 	variation?: 'primary' | 'secondary';
 	type?: 'default' | 'price';
 	textAlign?: 'left' | 'center' | 'right';
+	isPositive?: boolean;
 };
 
 export function TextBox({
@@ -16,6 +17,7 @@ export function TextBox({
 	variation = 'primary',
 	type = 'default',
 	textAlign = 'left',
+	isPositive = true,
 }: Props) {
 	return (
 		<View
@@ -32,13 +34,13 @@ export function TextBox({
 			{type === 'price' ? (
 				<HStack justifyContent={'space-between'}>
 					<Text
-						color={'gray.500'}
+						color={isPositive ? 'green.900' : 'red.900'}
 						fontSize={'xs'}
 					>
 						R$
 					</Text>
 					<Text
-						color={'gray.500'}
+						color={isPositive ? 'green.900' : 'red.900'}
 						fontSize={'xs'}
 					>
 						{name}
