@@ -1,10 +1,55 @@
-import { Text, VStack, Image, HStack } from 'native-base';
+import { useState } from 'react';
+import { Text, VStack, Image, HStack, FlatList } from 'native-base';
 
 import { Header } from '@components/Header';
 
 import BackgroundImg from '@assets/background.png';
+import { ExpensesPerMonth } from '@components/ExpensesPerMonth';
 
 export function Resume() {
+	const resumeData = [
+		{
+			id: 2,
+			year: 2023,
+			month: 'Setembro',
+			in: 200000,
+			out: -18000,
+			balance: 182000,
+			recordsByCategory: [
+				{
+					id: 3,
+					Category: 'Salário',
+					value: 200000,
+				},
+				{
+					id: 4,
+					Category: 'Despesas fixas',
+					value: -18000,
+				},
+			],
+		},
+		{
+			id: 1,
+			year: 2023,
+			month: 'Agosto',
+			in: 100000,
+			out: -10000,
+			balance: 90000,
+			recordsByCategory: [
+				{
+					id: 1,
+					Category: 'Salário',
+					value: 100000,
+				},
+				{
+					id: 2,
+					Category: 'Despesas fixas',
+					value: -10000,
+				},
+			],
+		},
+	];
+
 	return (
 		<>
 			<Image
@@ -79,8 +124,12 @@ export function Resume() {
 						</Text>
 					</HStack>
 
-					<Text color={'white'}>1</Text>
-					<Text color={'white'}>2</Text>
+					<FlatList
+						data={resumeData}
+						renderItem={({ item }) => (
+							<ExpensesPerMonth data={item} />
+						)}
+					/>
 				</VStack>
 			</VStack>
 		</>

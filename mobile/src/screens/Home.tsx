@@ -83,7 +83,7 @@ export function Home() {
 
 	const elementSpaceY: number = 2;
 
-	const [editingId, setEditingId] = useState(null);
+	const [editingId, setEditingId] = useState(0);
 
 	function formatValues(value: number) {
 		return (value / 100).toLocaleString('pt-BR', {
@@ -194,8 +194,8 @@ export function Home() {
 				>
 					<VStack
 						mb={8}
-						pointerEvents={editingId === null ? 'auto' : 'none'}
-						opacity={editingId === null ? 1 : 0.3}
+						pointerEvents={editingId === 0 ? 'auto' : 'none'}
+						opacity={editingId === 0 ? 1 : 0.3}
 					>
 						<Text
 							color={'amber.400'}

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState, Dispatch, SetStateAction } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { HStack, VStack, useTheme, Select, CheckIcon } from 'native-base';
 
@@ -13,8 +13,8 @@ import { ReleaseDTO } from '@dtos/ReleaseDTO';
 type Props = {
 	elementSpaceY: number;
 	data: ReleaseDTO;
-	editingId: number | null;
-	setEditingId: any;
+	editingId: number;
+	setEditingId: React.Dispatch<SetStateAction<number>>;
 };
 
 type VariantProps = {
@@ -48,7 +48,7 @@ export function InOut({ elementSpaceY, data, editingId, setEditingId }: Props) {
 
 	function handleViewing() {
 		setVariant('viewing');
-		setEditingId(null);
+		setEditingId(0);
 	}
 
 	const handleSetDay = (text: string) => setDay(text);
@@ -72,13 +72,13 @@ export function InOut({ elementSpaceY, data, editingId, setEditingId }: Props) {
 			alignItems={'center'}
 			mb={8}
 			pointerEvents={
-				editingId === null
+				editingId === 0
 					? 'auto'
 					: editingId === data.id
 					? 'auto'
 					: 'none'
 			}
-			opacity={editingId === null ? 1 : editingId === data.id ? 1 : 0.3}
+			opacity={editingId === 0 ? 1 : editingId === data.id ? 1 : 0.3}
 		>
 			<VStack
 				space={elementSpaceY}
